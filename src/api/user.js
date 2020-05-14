@@ -7,3 +7,10 @@ export function login(data) {
     data
   })
 }
+export function getInfo(token) {
+  return request({
+    method: 'get',
+    url: '/vue-element-admin/user/info',
+    params: { token }
+  })
+}

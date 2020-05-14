@@ -161,7 +161,7 @@ export default {
         if (cur !== 'redirect') {
           acc[cur] = query[cur]
         }
-        return cur
+        return acc
       }, {})
     }
   }

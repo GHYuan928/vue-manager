@@ -3,7 +3,7 @@ function resolve(src) {
   return path.join(__dirname, src)
 }
 const port = process.env.port || process.env.npm_config_port || 8080
-console.log('>>>><<<<<', require('./mock/mock-server.js'))
+
 module.exports = {
   publicPath: '/',
   outputDir: 'dist',
@@ -17,7 +17,7 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js')
+    before: require('./mock/mock-server')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that

@@ -1,0 +1,97 @@
+#app {
+  .main-container {
+    transition: margin-left .28s;
+    margin-left: $sideBarWidth;
+    min-height: 100%;
+    position: relative;
+  }
+  .sidebar-container{
+    transition: width .3s;
+    width: $sideBarWidth;
+    position: fixed;
+    background-color: $menuBg;
+    height: 100%;
+    font-size: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1001;
+    overflow: hidden;
+    .svg-icon {
+      margin-right: 16px;
+    }
+    /** el-scrollbar 外层warpper */
+    .scrollbar-wrapper{
+      overflow-x: hidden !important;
+    }
+    /** el-scrollbar 竖滚动条 */
+    .el-scrollbar__bar.is-vertical {
+      right: 0px;
+    }
+
+    .el-scrollbar {
+      height: 100%;
+    }
+    /** el-scrollbar 横滚动条 */
+    .is-horizontal{
+      display: none;
+    }
+    /** el-menu 设置宽高，否则默认 width:64px */
+    .el-menu {
+      border: none;
+      height: 100%;
+      width: 100% !important;
+    }
+    /** 激活的 submenu title */
+    .is-active>.el-submenu__title {
+      color: $subMenuActiveText !important;
+    }
+  }
+  .hideSidebar{
+    .sidebar-container {
+      width: 54px !important;
+    }
+    .main-container {
+      margin-left: 54px !important;
+    }
+    .el-submenu {
+      overflow: hidden;
+      &>.el-submenu__title{
+        .svg-icon{
+          margin-right: 20px;
+        }
+        .el-submenu__icon-arrow{
+          display: none;
+        }
+      }
+    }
+    /** el-menu-item 添加的class */
+    // .submenu-title-noDropdown {
+    //   padding: 0 !important;
+    //   position: relative;
+
+    //   .el-tooltip {
+    //     padding: 0 !important;
+
+    //     .svg-icon {
+    //       margin-left: 20px;
+    //     }
+    //   }
+    // }
+    /** el-menu 缩小 */
+    .el-menu--collapse{
+      .el-submenu__title{
+        &>span{
+          width: 0;
+          height: 0;
+          overflow: hidden;
+          visibility: hidden;
+          display: inline-block;
+        }
+      }
+    }
+    .el-menu--collapse .el-menu .el-submenu {
+      min-width: $sideBarWidth !important;
+    }
+  }
+}

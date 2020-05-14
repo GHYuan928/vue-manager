@@ -5,6 +5,9 @@ Vue.use(VueRouter)
 
 import Layout from '@/layout'
 
+/* Router Modules */
+import componentsRouter from './modules/components'
+
 /**
  * Note: sub-menu 仅出现当 route children.length >= 1 时
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -34,7 +37,7 @@ export const constantRoutes = [
     path: '/redirect',
     component: Layout,
     hidden: true,
-    childern: [
+    children: [
       {
         path: '/redirect/:path(.*)',
         component: () => import('@/views/redirect/index')
@@ -65,24 +68,24 @@ export const constantRoutes = [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
-    childern: [
+    children: [
       {
         path: 'dashboard',
         name: 'Dashboard',
         component: () => import('@/views/dashboard/index'),
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+        meta: { title: '首页', icon: 'dashboard', affix: true }
       }
     ]
   },
   {
     path: '/document',
     component: Layout,
-    childern: [
+    children: [
       {
         path: 'index',
         component: () => import('@/views/documentation/index'),
         name: 'Documentation',
-        meta: { title: 'Documentation', icon: 'documentation', affix: true }
+        meta: { title: '文档', icon: 'documentation', affix: true }
       }
     ]
   },
@@ -90,12 +93,12 @@ export const constantRoutes = [
     path: '/guide',
     component: Layout,
     redirect: '/guide/index',
-    childern: [
+    children: [
       {
         path: 'index',
         component: () => import('@/views/guide/index'),
         name: 'Guide',
-        meta: { title: 'Guide', icon: 'guide', noCache: true }
+        meta: { title: '引导页', icon: 'guide', noCache: true }
       }
     ]
   },
@@ -103,12 +106,12 @@ export const constantRoutes = [
     path: '/profile',
     component: Layout,
     redirect: '/profile/index',
-    childern: [
+    children: [
       {
         path: 'index',
         component: () => import('@/views/profile/index'),
         name: 'Profile',
-        meta: { title: 'Profile', icon: 'user', noCache: true }
+        meta: { title: '用户', icon: 'user', noCache: true }
       }
     ]
   }
@@ -118,7 +121,67 @@ export const constantRoutes = [
  * asyncRoutes
  * 此路由需要根据动态role加载
  */
-export const asyncRoutes = []
+export const asyncRoutes = [
+  {
+    path: '/permission',
+    component: Layout,
+    redirect: '/permission/page',
+    alwaysShow: true, // will always show the root menu
+    name: 'Permission',
+    meta: {
+      title: '权限管理',
+      icon: 'lock',
+      roles: ['admin', 'editor'] // you can set roles in root nav
+    },
+    children: [
+      {
+        path: 'page',
+        component: () => import('@/views/permission/page'),
+        name: 'PagePermission',
+        meta: {
+          title: '页面权限',
+          roles: ['admin'] // or you can only set roles in sub nav
+        }
+      },
+      {
+        path: 'directive',
+        component: () => import('@/views/permission/directive'),
+        name: 'DirectivePermission',
+        meta: {
+          title: '指令权限'
+          // if do not set roles, means: this page does not require permission
+        }
+      },
+      {
+        path: 'role',
+        component: () => import('@/views/permission/role'),
+        name: 'RolePermission',
+        meta: {
+          title: '角色权限',
+          roles: ['admin']
+        }
+      }
+    ]
+  },
+  {
+    path: '/icon',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/icons/index'),
+        name: 'Icons',
+        meta: {
+          title: '图标',
+          icon: 'icon',
+          noCache: true
+        }
+      }
+    ]
+  },
+  /** when your routing map is too long, you can split it into small modules **/
+  componentsRouter
+]
 
 const createRouter = () => new VueRouter({
   scrollBehavior: () => ({ y: 0 }),
