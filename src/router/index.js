@@ -106,6 +106,7 @@ export const constantRoutes = [
     path: '/profile',
     component: Layout,
     redirect: '/profile/index',
+    hidden: true,
     children: [
       {
         path: 'index',
@@ -180,7 +181,9 @@ export const asyncRoutes = [
     ]
   },
   /** when your routing map is too long, you can split it into small modules **/
-  componentsRouter
+  componentsRouter,
+  // 404 page must be placed at the end !!!
+  { path: '*', redirect: '/404', hidden: true }
 ]
 
 const createRouter = () => new VueRouter({
@@ -193,5 +196,6 @@ const router = createRouter()
 export default router
 
 export function resetRouter() {
-
+  const newRouter = createRouter()
+  router.matcher = newRouter.matcher
 }

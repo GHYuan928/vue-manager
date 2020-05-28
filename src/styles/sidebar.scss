@@ -46,6 +46,13 @@
     .is-active>.el-submenu__title {
       color: $subMenuActiveText !important;
     }
+    /** el-submenu 颜色设置*/
+    .el-submenu .el-menu-item{
+      background-color: $subMenuBg !important;
+      &:hover {
+        background-color: $subMenuHover !important;
+      }
+    }
   }
   .hideSidebar{
     .sidebar-container {

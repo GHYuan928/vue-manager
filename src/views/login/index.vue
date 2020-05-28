@@ -100,7 +100,7 @@ export default {
 
     return {
       loginForm: {
-        user: 'admin',
+        user: 'editor',
         pwd: '111111'
       },
       loginRules: {

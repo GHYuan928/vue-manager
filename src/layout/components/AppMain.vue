@@ -1,15 +1,33 @@
 <template>
-  <div>
-    <router-view />
-  </div>
+  <section class="app-main">
+    <transition name="fade-transform" mode="out-in" appear>
+      <keep-alive :include="cachedViews">
+        <router-view :key="key" />
+      </keep-alive>
+    </transition>
+  </section>
 </template>
 
 <script>
 export default {
-
+  name: 'AppMain',
+  computed: {
+    cachedViews() {
+      return this.$store.state.tagsView.cachedViews
+    },
+    key() { // 用于 :id 路由
+      return this.$route.path
+    }
+  }
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.app-main{
+  /* 50= navbar  50  */
+  min-height: calc(100vh - 50px);
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
 </style>

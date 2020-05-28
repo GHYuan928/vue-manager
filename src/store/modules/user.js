@@ -1,6 +1,6 @@
 import { login, getInfo } from '@/api/user'
 import { setToken, getToken, removeToken } from '@/utils/auth'
-import router from '@/router'
+import router,{resetRouter} from '@/router'
 export default {
   namespaced: true,
   state: {
@@ -67,6 +67,24 @@ export default {
         removeToken()
         commit('SET_TOKEN', '')
         commit('SET_ROLES', [])
+        resolve()
+      })
+    },
+    // 动态修改权限
+    async changeRoles({commit, dispatch}, val){
+      return new Promise((resolve)=>{
+        const token = val+'token'
+        commit('SET_TOKEN',token)
+        setToken(token)
+        const { roles } = await dispatch('getInfo')
+        // 重置路由
+        resetRouter()
+        // 重新生成动态路由
+        const accessRoutes = await dispatch('permission/generateRoutes', roles)
+        // 动态添加路由
+        router.addRoutes(accessRoutes)
+        // 删除 tagsView
+
         resolve()
       })
     }

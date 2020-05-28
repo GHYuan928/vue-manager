@@ -32,13 +32,15 @@ router.beforeEach(async(to, from, next) => {
         // get user info 根据token 获取用户信息
         // note: roles must be a object array! such as: ['admin'] or ,['developer','editor']
         const { roles } = await store.dispatch('user/getInfo')
-
+        console.log('r', roles)
         // 生成基于role的路由表
         const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
+        console.log('accessRoutes', accessRoutes)
         // 动态添加路由
         router.addRoutes(accessRoutes)
         // 确保addRoutes完整的hack方法
         // 设置 replace = true，这样导航就不会留下历史记录
+        console.log(to)
         next({ ...to, replace: true })
       } catch (error) {
         // 移除 token, 重新登录

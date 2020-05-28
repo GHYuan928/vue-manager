@@ -30,3 +30,11 @@ export default new Vuex.Store({
   getters,
   modules
 })
+/**
+ * app 模块。 作为全局的 state.  有 sidebar
+ * settings模块。 是右边设置按钮 的配置
+ * permission模块。是权限permission.js 的配置，路由相关
+ * user模块。用户信息
+ * tagsView模块。是 tagsView 视图的配置
+ */
+
