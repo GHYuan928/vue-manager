@@ -10,6 +10,7 @@ export default {
       if (state.visitedViews.some(item => item.path === view.path)) {
         return
       }
+      // 可以直接 push ，因为 vue 实现了 push 后 watch
       state.visitedViews.push({
         ...view,
         title: view.meta.title || 'no-name'
@@ -34,6 +35,13 @@ export default {
     },
     DEL_CACHED_VIEW(state, view) {
       state.cachedViews.splice(state.cachedViews.indexOf(view.name), 1)
+    },
+    DEL_ALL_VISITED_VIEWS(state) {
+      const affixTags = state.visitedViews.filter(tag => tag.meta.affix)
+      state.visitedViews = affixTags
+    },
+    DEL_ALL_CACHED_VIEWS(state) {
+      state.cachedViews = []
     }
   },
   actions: {
@@ -59,6 +67,16 @@ export default {
         dispatch('delCachedView', view)
         resolve()
       })
+    },
+    delAllViews({ dispatch }) {
+      dispatch('delAllVisitedViews')
+      dispatch('delAllCachedViews')
+    },
+    delAllVisitedViews({ commit }) {
+      commit('DEL_ALL_VISITED_VIEWS')
+    },
+    delAllCachedViews({ commit }) {
+      commit('DEL_ALL_CACHED_VIEWS')
     }
   }
 }

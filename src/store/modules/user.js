@@ -1,6 +1,6 @@
 import { login, getInfo } from '@/api/user'
 import { setToken, getToken, removeToken } from '@/utils/auth'
-import router,{resetRouter} from '@/router'
+import router, { resetRouter } from '@/router'
 export default {
   namespaced: true,
   state: {
@@ -41,6 +41,17 @@ export default {
         })
       })
     },
+    logout({ commit, dispatch, state }) {
+      return new Promise(async resolve => {
+        commit('SET_TOKEN', '')
+        commit('SET_ROLES', [])
+        removeToken()
+        resetRouter()
+        /** dispatch 最后 root:true 表示app -> tagsView 模块下actions 否则当前下的 action*/
+        dispatch('tagsView/delAllViews', null, { root: true })
+        resolve()
+      })
+    },
     getInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
         getInfo(state.token).then((response) => {
@@ -71,19 +82,26 @@ export default {
       })
     },
     // 动态修改权限
-    async changeRoles({commit, dispatch}, val){
-      return new Promise((resolve)=>{
-        const token = val+'token'
-        commit('SET_TOKEN',token)
+    changeRoles({ commit, dispatch }, val) {
+      return new Promise(async resolve => {
+        const token = val + '-token'
+
+        commit('SET_TOKEN', token)
         setToken(token)
+
+        // 重新根据 token 获取用户信息
         const { roles } = await dispatch('getInfo')
         // 重置路由
         resetRouter()
-        // 重新生成动态路由
-        const accessRoutes = await dispatch('permission/generateRoutes', roles)
+
+        // 基于roles重新生成动态路由
+        const accessRoutes = await dispatch('permission/generateRoutes', roles, { root: true })
+
         // 动态添加路由
         router.addRoutes(accessRoutes)
+
         // 删除 tagsView
+        dispatch('tagsView/delAllViews', null, { root: true })
 
         resolve()
       })

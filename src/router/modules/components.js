@@ -1,11 +1,11 @@
 import Layout from '@/layout'
 export default {
   path: '/components',
-  components: Layout,
+  component: Layout,
   redirect: 'noRedirect',
   name: 'ComponentDemo',
   meta: {
-    title: 'Components',
+    title: '编辑器',
     icon: 'component'
   },
   children: [
@@ -13,7 +13,19 @@ export default {
       path: 'tinymce',
       component: () => import('@/views/components-demo/tinymce'),
       name: 'TinymceDemo',
-      meta: { title: 'Tinymce' }
+      meta: { title: 'Tinymce富文本' }
+    },
+    {
+      path: 'markdown',
+      component: () => import('@/views/components-demo/markdown'),
+      name: 'MarkdownDemo',
+      meta: { title: 'Markdown' }
+    },
+    {
+      path: 'json-editor',
+      component: () => import('@/views/components-demo/json-editor'),
+      name: 'JsonEditorDemo',
+      meta: { title: 'JSON编辑器' }
     }
   ]
 }

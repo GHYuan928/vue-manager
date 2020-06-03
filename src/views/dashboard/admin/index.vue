@@ -38,11 +38,17 @@
 
 <script>
 import GithubCorner from '@/components/GithubCorner'
+// PanelGroup 面板组 [新访问者，消息，成交金额， 订单数]
 import PanelGroup from './components/PanelGroup'
+// LineChart 线性表
 import LineChart from './components/LineChart'
+// 雷达表
 import RaddarChart from './components/RaddarChart'
+// 圆形表
 import PieChart from './components/PieChart'
+// 柱状表
 import BarChart from './components/BarChart'
+// 表格
 import TransactionTable from './components/TransactionTable'
 
 const lineChartData = {

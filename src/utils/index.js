@@ -52,3 +52,17 @@ export function throttle(func, delay, type) {
     }
   }
 }
+
+export function deepClone(source) {
+  if (typeof source !== 'object' || source == null) {
+    return source
+  }
+  const res = source.constructor === Array ? [] : {}
+  Object.keys(source).forEach(keys => {
+    res[keys] = deepClone(source[keys])
+  })
+  // for (const keys in source) {
+  //   res[keys] = deepClone(source[keys])
+  // }
+  return res
+}

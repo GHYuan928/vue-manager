@@ -64,7 +64,7 @@ export default {
       return false
     },
     filterAffixTags(routes, asePath = '/') {
-      // 所有路由拍平 && affix=true 的
+      // 所有路由拍平 && affix=true 会固定在 不会删除
       let tags = []
       routes.forEach(item => {
         if (item.meta && item.meta.affix) {

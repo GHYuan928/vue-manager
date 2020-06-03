@@ -4,6 +4,11 @@ const Mock = require('mockjs')
 const chalk = require('chalk')
 const path = require('path')
 const mockDir = path.join(process.cwd(), 'mock')
+
+// Mock.setup({
+//   timeout: '200-600'
+// })
+
 function registerRoutes(app) {
   let mockLastIndex
   const mocks = require('./index.js')

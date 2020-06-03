@@ -7,11 +7,17 @@
         </el-menu-item>
       </app-link>
     </template>
+
     <el-submenu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
       <template slot="title">
         <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="item.meta.title" />
       </template>
-      <sidebar-item v-for="child in item.children" :key="child.path" :item="child" :base-path="resolvePath(child.path)" />
+      <sidebar-item
+        v-for="child in item.children"
+        :key="child.path"
+        :item="child"
+        :base-path="resolvePath(child.path)"
+      />
     </el-submenu>
   </div>
 </template>
@@ -43,19 +49,21 @@ export default {
     }
   },
   data() {
-    return {
-      onlyOneChild: null
-    }
+    // To fix https://github.com/PanJiaChen/vue-admin-template/issues/237
+    // TODO: refactor with render function
+    this.onlyOneChild = null
+    return {}
   },
   methods: {
     hasOneShowingChild(children = [], parent) {
-      const showingChildren = children.filter(item => {
-        if (item.hidden) {
+      const showingChildren = children.filter(child => {
+        if (child.hidden) {
           return false
         }
-        this.onlyOneChild = item
+        this.onlyOneChild = child
         return true
       })
+      // 仅只有一个可显示的子路由
       if (showingChildren.length === 1) {
         return true
       }

@@ -7,7 +7,7 @@ import Layout from '@/layout'
 
 /* Router Modules */
 import componentsRouter from './modules/components'
-
+import charts from './modules/charts'
 /**
  * Note: sub-menu 仅出现当 route children.length >= 1 时
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -182,6 +182,7 @@ export const asyncRoutes = [
   },
   /** when your routing map is too long, you can split it into small modules **/
   componentsRouter,
+  charts,
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
@@ -195,7 +196,8 @@ const router = createRouter()
 
 export default router
 
+// 路由清除
 export function resetRouter() {
   const newRouter = createRouter()
-  router.matcher = newRouter.matcher
+  router.matcher = newRouter.matcher // reset router
 }

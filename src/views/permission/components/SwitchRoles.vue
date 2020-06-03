@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div>
+  <div class="page">
+    <div class="cur_role">
       当前角色: {{ roles }}
     </div>
     切换角色
@@ -31,6 +31,11 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.page {
+  padding: 20px;
+  .cur_role {
+    margin-bottom: 30px;
+  }
+}
 </style>
